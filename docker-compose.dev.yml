@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vulncard-backend-dev
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./configs:/root/configs:ro
+      - ./backend:/app
+    environment:
+      - CONFIG_DIR=/root/configs
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    networks:
+      - vulncard-network
+    command: sh -c "go run main.go"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vulncard-frontend-dev
+    ports:
+      - "9091:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - vulncard-network
+
+networks:
+  vulncard-network:
+    driver: bridge
+

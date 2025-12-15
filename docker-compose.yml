@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vulncard-backend
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./configs:/root/configs:ro
+    environment:
+      - CONFIG_DIR=/root/configs
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    networks:
+      - vulncard-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vulncard-frontend
+    ports:
+      - "9091:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - vulncard-network
+
+networks:
+  vulncard-network:
+    driver: bridge
+

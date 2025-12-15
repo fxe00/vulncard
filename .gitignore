@@ -1,0 +1,73 @@
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.log
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vulncard-server
+backend/vulncard-server
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# 前端构建产物
+dist/
+dist-ssr/
+*.local
+frontend/dist/
+frontend/.vite/
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Docker
+.docker/
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+
+# 测试覆盖率
+coverage/
+*.coverprofile
+
+# 备份文件
+*.bak
+*.backup
+*~
