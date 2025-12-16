@@ -61,7 +61,7 @@
 
             <div class="detail-content-container">
               <!-- 列布局 -->
-              <div v-if="perspective.content.columns" class="content-columns">
+              <div v-if="perspective.content.columns" class="content-columns first-content">
                 <div
                   v-for="(column, colIndex) in perspective.content.columns"
                   :key="colIndex"
@@ -71,12 +71,13 @@
                     v-for="(box, boxIndex) in column.boxes"
                     :key="boxIndex"
                     :box="box"
+                    :class="{ 'first-box': boxIndex === 0 && colIndex === 0 }"
                   />
                 </div>
               </div>
 
               <!-- 区块内容 -->
-              <div v-for="(section, sectionIndex) in perspective.content.sections" :key="sectionIndex">
+              <div v-for="(section, sectionIndex) in perspective.content.sections" :key="sectionIndex" :class="{ 'first-section': sectionIndex === 0 && !perspective.content.columns }">
                 <!-- 攻击流程 -->
                 <AttackFlow v-if="section.type === 'attack_flow'" :section="section" />
 
@@ -536,6 +537,25 @@ export default {
   padding: 0 30px 30px;
   min-height: 0;
   max-height: 100%;
+}
+
+/* 为第一个内容元素添加顶部间距，与补充信息视角保持一致 */
+.detail-content-container > .content-columns.first-content {
+  margin-top: 25px;
+}
+
+.detail-content-container > .content-columns.first-content > .content-column:first-child > .info-box.first-box {
+  margin-top: 0;
+}
+
+/* 第一个 section（如攻击流程、影响项等）添加顶部间距 */
+.detail-content-container > div.first-section {
+  margin-top: 25px;
+}
+
+/* 调整第一个 section 内部 h4 的 margin-top，确保总间距为 25px */
+.detail-content-container > div.first-section > div > h4 {
+  margin-top: 0 !important;
 }
 
 .detail-content-container::-webkit-scrollbar {
