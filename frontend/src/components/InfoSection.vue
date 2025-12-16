@@ -1,5 +1,5 @@
 <template>
-  <div :class="['info-box', getBorderClass()]" style="margin-top: 25px; margin-bottom: 25px;">
+  <div :class="['info-box', getBorderClass(), { 'first-info-section': isFirst }]" :style="boxStyle">
     <h4>
       <i :class="`fas ${section.icon}`"></i> {{ section.title }}
     </h4>
@@ -35,6 +35,18 @@ export default {
     section: {
       type: Object,
       required: true
+    },
+    isFirst: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    boxStyle() {
+      if (this.isFirst) {
+        return { marginBottom: '25px' }
+      }
+      return { marginTop: '25px', marginBottom: '25px' }
     }
   },
   methods: {

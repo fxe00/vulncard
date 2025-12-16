@@ -91,7 +91,7 @@
                 <InfoTable v-if="section.type === 'table'" :section="section" />
 
                 <!-- 信息框区块 -->
-                <InfoSection v-if="section.type === 'info'" :section="section" />
+                <InfoSection v-if="section.type === 'info'" :section="section" :is-first="sectionIndex === 0 && !perspective.content.columns" />
               </div>
 
               <!-- 页脚 -->
@@ -512,6 +512,11 @@ export default {
   flex-shrink: 0;
 }
 
+/* 补充信息视角的标题底部间距更小 */
+.detail-content[id="additional"] .perspective-header {
+  padding-bottom: 10px;
+}
+
 .perspective-header h2 {
   color: #2c3e50;
   font-size: 22px;
@@ -539,9 +544,9 @@ export default {
   max-height: 100%;
 }
 
-/* 为第一个内容元素添加顶部间距，与补充信息视角保持一致 */
+/* 为第一个内容元素添加顶部间距 */
 .detail-content-container > .content-columns.first-content {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .detail-content-container > .content-columns.first-content > .content-column:first-child > .info-box.first-box {
@@ -550,11 +555,21 @@ export default {
 
 /* 第一个 section（如攻击流程、影响项等）添加顶部间距 */
 .detail-content-container > div.first-section {
-  margin-top: 25px;
+  margin-top: 20px;
+}
+
+/* 补充信息视角的第一个 section 间距更小 */
+.detail-content[id="additional"] .detail-content-container > div.first-section {
+  margin-top: 10px;
 }
 
 /* 调整第一个 section 内部 h4 的 margin-top，确保总间距为 25px */
 .detail-content-container > div.first-section > div > h4 {
+  margin-top: 0 !important;
+}
+
+/* 调整第一个 InfoSection（补充信息视角）的 margin-top，与其他视角保持一致 */
+.detail-content-container > div.first-section > .info-box.first-info-section {
   margin-top: 0 !important;
 }
 
@@ -579,7 +594,7 @@ export default {
 .detail-content {
   display: none;
   animation: fadeIn 0.5s ease;
-  padding-top: 20px;
+  padding-top: 0;
   min-height: 100%;
 }
 
